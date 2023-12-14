@@ -26,3 +26,11 @@ snakemake --snakefile imputation.smk -j5
 ```
 
 You can find slides with basic information on how the workflow works in ```imputation_slides.pptx```
+
+# Snakemake: text-based workflow system using python interpreter
+
+Snakemake is very well-documented. A few useful links:
+- Snakemake tutorial: https://snakemake.readthedocs.io/en/stable/tutorial/tutorial.html
+- Snakemake slides: https://slides.com/johanneskoester/snakemake-tutorial 
+- Snakemake advanced: https://f1000research.com/articles/10-33/v1
+
