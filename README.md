@@ -1,8 +1,15 @@
-# Inputation-Workshop
+# Imputation-Workshop
 
-This document provides basic guidelines on how to perform genotype imputation on ancient DNA datasets using a snakemake workflow. Please, download Snakemake following the instructions here: https://snakemake.readthedocs.io/en/stable/getting_started/installation.html
+This document provides basic guidelines on how to perform genotype imputation on ancient DNA datasets using a Snakemake workflow. Please, follow the instructions to download [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html).
 
-We will be using GLIMPSE which has been design to impute low-coverage whole-genome sequencing data. Here you can find the documentation of the tool and how to install it: ```https://odelaneau.github.io/GLIMPSE```. It is highly recommended to read this article before using GLIMPSE on ancient DNA: ```https://www.nature.com/articles/s41467-023-39202-0```.
+We will use GLIMPSE, designed to impute low-coverage whole-genome sequencing data. [Here](https://odelaneau.github.io/GLIMPSE) you can find the tool's documentation and how to install it. It is highly recommended to read [this article](https://www.nature.com/articles/s41467-023-39202-0) by Mota et al. 2022 before using GLIMPSE on ancient DNA. The tool was first published by [Rubinacci et al. 2021](https://www.nature.com/articles/s41588-020-00756-0). 
+
+
+## Software requierements 
+- Snakemake
+- bcftools
+- R (version >= 4.0)
+- GLIMPSE
 
 ## Workflow overview
 - Genotype likelihoods calling (bcftools 1.13)
@@ -10,10 +17,12 @@ We will be using GLIMPSE which has been design to impute low-coverage whole-geno
 - Summary statistics (per-sample)
 
 Pre-running the pipeline step:
-- Values key set-up using a configuration file in yaml format (do not modify the key name unless you change it accordingly in all snakemake files. If you change the config filename, you will need to add this flag --configfile when running snakemake).
+- Values key set-up using a configuration file in YAML format (do not modify the key name unless you change it accordingly in all Snakemake files. If you change the config filename, you will need to add this flag --configfile when running Snakemake).
 
 The workflow is executed as follows:
 
 ```bash 
 snakemake --snakefile imputation.smk -j5
 ```
+
+You can find slides with basic information on how the workflow works in ```imputation_slides.pptx```
