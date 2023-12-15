@@ -1,0 +1,24 @@
+# Files vcf
+ligatedVCF: /projects/mjolnir1/people/rqk158/projects/Osteoporosis/step4_ligation/ligated
+sampleIds: /maps/projects/mjolnir1/people/gsd818/osteoProject/samplesId_v1.txt
+# extra files
+targets: /maps/projects/mjolnir1/people/gsd818/osteoProject/panels/capturePanels/1240k.autosomes.snps.fwd.clean.bed.gz
+masks: /maps/projects/mjolnir1/people/gsd818/osteoProject/panels/masks/1000g_strict.simpleRepeat.mask.bed.gz
+# bams
+bams: /projects/mjolnir1/people/rqk158/projects/Osteoporosis/{sample}.rmdup.merged.bam
+# Files for imputation
+panel:
+  vcf: /maps/projects/mjolnir1/people/gsd818/1000genomes_2015_nature/vcf/chr{chrom}.1000g.freeze9.umich.GRCh38.snps.biallelic.pass.vcf.gz
+  alleles: /maps/projects/mjolnir1/people/gsd818/1000genomes_2015_nature/vcf/chr{chrom}.1000g.freeze9.umich.GRCh38.snps.biallelic.pass.vcf.alleles.tsv.gz
+  genmap: /maps/projects/mjolnir1/people/gsd818/genomic_map/hg38_chroms/chr{chrom}.grch38.map.gz
+glimpse:
+  path: /projects/mjolnir1/apps/conda/glimpse-bio-1.1.1/bin
+  windowsize:
+    5000000
+  buffersize:
+    500000
+  threads:
+    44
+ref: /maps/projects/mjolnir1/people/gsd818/reference/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz
+ref_hg19: /projects/mjolnir1/people/gsd818/reference/hg19/hg19.fa
+mq: 30
