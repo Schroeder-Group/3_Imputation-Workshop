@@ -1,6 +1,14 @@
 # Imputation-Workshop
 
+#NB Perhaps to add here a first step if one needs from the merge bam files to do some filters before using it for imputation. Do we have to do something before?
+
+#NB So it could titled as: Step 1: Pre-processing Bam files before imputation or something like this
+
+#NB Then, Step 2: To create a Conda Environment or download a Conda Environment on Moljnir
+
 #NB add note about conda
+
+#NB Step 3: If I undersdood correctly; now it is the step when one has to use 
 
 This document provides basic guidelines on how to perform genotype imputation on ancient DNA datasets using a Snakemake workflow. Please, follow the instructions to download [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html).
 
