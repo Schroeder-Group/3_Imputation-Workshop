@@ -1,5 +1,7 @@
 # Imputation-Workshop
 
+#NB add note about conda
+
 This document provides basic guidelines on how to perform genotype imputation on ancient DNA datasets using a Snakemake workflow. Please, follow the instructions to download [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html).
 
 We will use GLIMPSE, designed to impute low-coverage whole-genome sequencing data. Read more about [GLIMPSE](https://odelaneau.github.io/GLIMPSE) tool's documentation and how to install it. It is highly recommended to read the benchmarking article by [Mota et al. 2022](https://www.nature.com/articles/s41467-023-39202-0) before using GLIMPSE on ancient DNA. The tool was first published by [Rubinacci et al. 2021](https://www.nature.com/articles/s41588-020-00756-0). 
