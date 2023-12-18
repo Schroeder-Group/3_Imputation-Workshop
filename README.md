@@ -8,7 +8,9 @@
 
 #NB add note about conda
 
-#NB Step 3: If I undersdood correctly; now it is the step when one has to use 
+#NB Step 3: If I understood correctly; now it is the step when one has to use the file: imputation.smk
+
+#NB I wanted to ask you when running snake do we have to have in our folder/repository in the server, both the conf.file and imputation file for this to function? If, yes, perhaps adding this information will be useful.
 
 This document provides basic guidelines on how to perform genotype imputation on ancient DNA datasets using a Snakemake workflow. Please, follow the instructions to download [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html).
 
