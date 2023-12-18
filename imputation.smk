@@ -27,6 +27,7 @@ rule compute_gl:
         vcf=temp("tmpDir/{chrom}/{chrom}.{sample}.gl.vcf.gz"),
         tbi=temp("tmpDir/{chrom}/{chrom}.{sample}.gl.vcf.gz.tbi"),
         sample=temp("tmpDir/{chrom}/{sample}.sample.txt"),
+# add cores and mem
     shell:
         """
         echo -e {wildcards.sample} > {output.sample}
