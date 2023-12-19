@@ -32,8 +32,11 @@ The workflow is executed as follows:
 snakemake --snakefile imputation.smk -j5
 # if the filename is Snakefile and it located in the working directory you don't have to provide the name 
 snakemake -j5
+# dry-run. The -np flags specify that job execution will be simulated (-n) and the individual rule commands printed (-p)
+snakemake -np 
+
 ```
-Specify the path using the flag ```--snakefile``` if the file is not located in your working directory. I usually have all my snakefiles in a separate directory named  ```rules```. This applied as well to the config.yaml file. The location can be indicated in the Snakefiles. 
+Specify the path using the flag ```--snakefile``` if the file is not located in your working directory. I usually have all my snakefiles in a separate directory named  ```rules```. This applied as well to the config.yaml file ```--configfile```. The location can be indicated in the Snakefiles. 
 
 You can find slides with basic information on how the workflow works in ```imputation_slides.pptx```
 
