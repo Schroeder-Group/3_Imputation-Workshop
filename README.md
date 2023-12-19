@@ -38,6 +38,13 @@ snakemake -np
 ```
 Specify the path using the flag ```--snakefile``` if the file is not located in your working directory. I usually have all my snakefiles in a separate directory named  ```rules```. This applied as well to the config.yaml file ```--configfile```. The location can be indicated in the Snakefiles. 
 
+## Output files
+- Merged VCF files with mputed and phased genotypes
+- Summary statistics containing genotype probabilities (GP) and read depth for further filtering
+- Optional: conversion of merged VCF files to PLINK format
+
+The VCF file contains a variant-level ```INFO``` score (imputation info quality score) which is calculated from sample GP values, and specific for the sample set included in the VCF. If samples are removed afterwards, it is recommeneded to recalculate the INFO value for the new set. 
+
 You can find slides with basic information on how the workflow works in ```imputation_slides.pptx```
 
 ## Snakemake: text-based workflow system using python interpreter
