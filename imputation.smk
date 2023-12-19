@@ -173,6 +173,9 @@ rule annote_vcf_phase:
 
 
 rule annote_vcf_gl:
+    """ 
+    Annotation of INFO field
+    """
     input:
         vcf_ant="tmpDir/{chrom}/{chrom}.annot.vcf.gz",
         tbi_ant="tmpDir/{chrom}/{chrom}.annot.vcf.gz.tbi",
@@ -188,6 +191,9 @@ rule annote_vcf_gl:
         """
 
 rule summarize_chrom:
+    """
+    Summary statistics (averaged read depth and genotype probability) per chromsome. Output is a tab-delimted file.
+    """
     input:
         vcf="glimpse/{chrom}.glimpse.vcf.gz",
         # targetsP=config['targets']
@@ -199,6 +205,9 @@ rule summarize_chrom:
         """
 
 rule summarize_all:
+    """
+    Summary statistics per chromsome are aggregated across the genome (averaged read depth and genotype probability)
+    """
     input:
         expand("glimpse/stats/chr{chrom}.glimpse.summary.tsv", chrom=CHROMS),
     output:
