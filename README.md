@@ -47,10 +47,20 @@ Snakemake is very well-documented. A few useful links:
 ## Conda environments
 
 I'd recommend to create your conda environment for each project (which will requiere different software and potentially difference versions). More information on [conda environments](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html). 
+
+Some useful commands to get started:
+
 ```bash
+# list all the current channels
+conda config --show channels
+# add new channels to the front of the priority list (you only need to do this once)
+conda config --prepend channels bioconda
+conda config --prepend channels conda-forge
+# list the available environments
+conda env list
 # If an environmental.yaml file is given (versions specified), all dependencies and packages can be installed in a new env as follow: 
 conda env create --name XXX --file environment.yaml
-# When no YAML file is provided (build from scratch)
+# create an empty new environment
 conda env create --name XXX
 # activate the environment to use it
 conda activate XXX
@@ -63,5 +73,9 @@ conda install snakemake=5.15.0
 conda env export --no-builds --from-history > environment.yaml
 - B. all
 conda env export > environment.yaml
+# deactivate an environemnt
+conda deactivate
+# delete environment
+conda env remove --name XXX
 ```
 There are some conda environments within Mjiolinr. More info in [Mjolnir documentation] https://mjolnir-ucph.readthedocs.io/en/latest/software.html#conda-environments and they are located: ```/projects/mjolnir1/apps/conda/software-version```
