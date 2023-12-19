@@ -1,13 +1,15 @@
 # Imputation-Workshop
 
+This document provides basic guidelines on how to perform genotype imputation on ancient DNA datasets using a Snakemake workflow.
+
 ## Pre-processing 
 
-This document provides basic guidelines on how to perform genotype imputation on ancient DNA datasets using a Snakemake workflow.
+Note that this pipeline assumes you already have mapped your data to a reference. Important: use the same reference and version for imputation. 
+
+## Software requierements 
 
 We will use GLIMPSE, designed to impute low-coverage whole-genome sequencing data. Read more about [GLIMPSE](https://odelaneau.github.io/GLIMPSE) tool's documentation and how to install it. It is highly recommended to read the benchmarking article by [Mota et al. 2022](https://www.nature.com/articles/s41467-023-39202-0) before using GLIMPSE on ancient DNA. The tool was first published by [Rubinacci et al. 2021](https://www.nature.com/articles/s41588-020-00756-0). 
 
-
-## Software requierements 
 Please, follow the instructions to download [Snakemake](https://snakemake.readthedocs.io/en/stable/getting_started/installation.html). 
 
 - Snakemake 
@@ -35,7 +37,7 @@ Specify the path using the flag ```--snakefile``` if the file is not located in 
 
 You can find slides with basic information on how the workflow works in ```imputation_slides.pptx```
 
-# Snakemake: text-based workflow system using python interpreter
+## Snakemake: text-based workflow system using python interpreter
 
 Snakemake is very well-documented. A few useful links:
 - Snakemake tutorial: https://snakemake.readthedocs.io/en/stable/tutorial/tutorial.html
