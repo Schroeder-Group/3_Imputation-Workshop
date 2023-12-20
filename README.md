@@ -1,6 +1,6 @@
 # Imputation-Workshop
 
-This document provides basic guidelines on how to perform genotype imputation on ancient DNA datasets using a Snakemake workflow.
+This document provides basic guidelines for performing genotype imputation on ancient DNA datasets using a Snakemake workflow.
 
 ## Pre-processing 
 
@@ -23,14 +23,14 @@ Please, follow the instructions to download [Snakemake](https://snakemake.readth
 - Summary statistics (per-sample)
 
 Pre-running the pipeline step:
-- Values key set-up using a configuration file in YAML format (do not modify the key name unless you change it accordingly in all Snakemake files. If you change the config filename, you will need to add this flag --configfile when running Snakemake).
+- Values key set-up using a configuration file in YAML format (do not modify the key name unless you change it accordingly in all Snakemake files
 
 The workflow is executed as follows:
 
 ```bash
 # simple run 
 snakemake --snakefile imputation.smk -j5
-# if the filename is Snakefile and it located in the working directory you don't have to provide the name 
+# If the filename is Snakefile and is located in the working directory you don't have to provide the name 
 snakemake -j5
 # dry-run. The -np flags specify that job execution will be simulated (-n) and the individual rule commands printed (-p)
 snakemake -np 
@@ -39,15 +39,15 @@ snakemake -np
 Specify the path using the flag ```--snakefile``` if the file is not located in your working directory. I usually have all my snakefiles in a separate directory named  ```rules```. This applied as well to the config.yaml file ```--configfile```. The location can be indicated in the Snakefiles. 
 
 ## Output files
-- Merged VCF files with mputed and phased genotypes
+- Merged VCF files with imputed and phased genotypes
 - Summary statistics containing genotype probabilities (GP) and read depth for further filtering
 - Optional: conversion of merged VCF files to PLINK format
 
-The VCF file contains a variant-level ```INFO``` score (imputation info quality score) which is calculated from sample GP values, and specific for the sample set included in the VCF. If samples are removed afterwards, it is recommeneded to recalculate the INFO value for the new set. 
+The VCF file contains a variant-level ```INFO``` score (imputation info quality score) which is calculated from sample GP values, and specific for the sample set included in the VCF. If samples are removed afterwards, it is recommended to recalculate the INFO value for the new set. 
 
 You can find slides with basic information on how the workflow works in ```imputation_slides.pptx```
 
-## Snakemake: text-based workflow system using python interpreter
+## Snakemake: text-based workflow system using Python interpreter
 
 Snakemake is very well-documented. A few useful links:
 - Snakemake tutorial: https://snakemake.readthedocs.io/en/stable/tutorial/tutorial.html
@@ -56,36 +56,36 @@ Snakemake is very well-documented. A few useful links:
 
 ## Conda environments
 
-I'd recommend to create your conda environment for each project (which will requiere different software and potentially difference versions). More information on [conda environments](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html). 
+I recommend creating your conda environment for each project (which will require different software and potentially different versions). More information on [conda environments](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html). 
 
 Some useful commands to get started:
 
 ```bash
-# list all the current channels
+# List all the current channels
 conda config --show channels
-# add new channels to the front of the priority list (you only need to do this once)
+# Add new channels to the front of the priority list (you only need to do this once)
 conda config --prepend channels bioconda
 conda config --prepend channels conda-forge
-# list the available environments
+# List the available environments
 conda env list
-# If an environmental.yaml file is given (versions specified), all dependencies and packages can be installed in a new env as follow: 
+# If an environmental.yaml file is given (versions specified), all dependencies and packages can be installed in a new env as follows: 
 conda env create --name XXX --file environment.yaml
 # create an empty new environment
 conda env create --name XXX
-# activate the environment to use it
+# Activate the environment to use it
 conda activate XXX
-# find latest version of snakemake (or whatever other package you are interested)
+# find the latest version of Snakemake (or whatever other package you are interested in)
 conda search snakemake
 # install it - one package at a time
 conda install snakemake=5.15.0
-# export the environment file (you will get the updated dependencies - if you had install new ones after the creation of the env)
+# Export the environment file (you will get the updated dependencies - if you had installed new ones after the creation of the env)
 - A. only built from user
 conda env export --no-builds --from-history > environment.yaml
 - B. all
 conda env export > environment.yaml
-# deactivate an environemnt
+# Deactivate an environment
 conda deactivate
-# delete environment
+# Delete environment
 conda env remove --name XXX
 ```
 There are some conda environments within Mjiolinr. More info in [Mjolnir documentation] https://mjolnir-ucph.readthedocs.io/en/latest/software.html#conda-environments and they are located: ```/projects/mjolnir1/apps/conda/software-version```
