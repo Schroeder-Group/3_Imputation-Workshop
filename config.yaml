@@ -1,3 +1,5 @@
+# reference version
+reference_version: GRCh38
 # Files vcf
 ligatedVCF: /projects/mjolnir1/people/rqk158/projects/Osteoporosis/step4_ligation/ligated
 sampleIds: /maps/projects/mjolnir1/people/gsd818/osteoProject/samplesId_v1.txt
