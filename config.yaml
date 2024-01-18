@@ -1,7 +1,6 @@
 # reference version
 reference_version: GRCh38
 # Files vcf
-ligatedVCF: /projects/mjolnir1/people/rqk158/projects/Osteoporosis/step4_ligation/ligated
 sampleIds: /maps/projects/mjolnir1/people/gsd818/osteoProject/samplesId_v1.txt
 # extra files
 targets: /maps/projects/mjolnir1/people/gsd818/osteoProject/panels/capturePanels/1240k.autosomes.snps.fwd.clean.bed.gz
@@ -24,3 +23,5 @@ glimpse:
 ref: /maps/projects/mjolnir1/people/gsd818/reference/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.gz
 ref_hg19: /projects/mjolnir1/people/gsd818/reference/hg19/hg19.fa
 mq: 30
+# REF=/projects/mjolnir1/people/rqk158/panels/imputation/{chrom}.1000g.freeze9.umich.GRCh37.snps.biallelic.pass.vcf.gz
+# genmap=/projects/mjolnir1/people/rqk158/panels/imputation/genetic_maps/chr{chrom}.b37.gmap.gz
