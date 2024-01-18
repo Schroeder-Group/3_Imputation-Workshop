@@ -43,7 +43,7 @@ Specify the path using the --snakefile flag if the file is not located in your w
 - Summary statistics containing genotype probabilities (GP) and read depth for further filtering
 - Optional: conversion of merged VCF files to PLINK format
 
-The VCF file contains a variant-level ```INFO``` score (imputation info quality score) which is calculated from the samples' GP (genotype probabilities) values and is specific to the sample set included in the VCF. If samples are removed afterwards (for example, due to quality control reasoning such as being too low coverage or another sample's relative), it is recommended to recalculate the INFO value for the new set (the value will change slightly). 
+The VCF file contains a variant-level ```INFO``` score (imputation info quality score) which is calculated from the samples' GP (genotype probabilities) values and is specific to the sample set included in the VCF. If samples are removed afterwards (for example, due to quality control reasoning such as being too low coverage or another sample's relative), it is recommended to recalculate the INFO value for the new set (the value will change slightly). Further filtering of SNPs for MAF and/or INFO score is advisable (e.g. INFO >= 0.5) for population genetics studies.
 
 You can find slides with basic information on how the workflow works in ```imputation_slides.pptx```
 
