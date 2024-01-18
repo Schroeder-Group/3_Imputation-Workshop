@@ -1,15 +1,20 @@
 # --------------------------------------------------------------------------------
+# Indicated the location and name of a YAML configuration file. In this case, is expected to be named 'config.yaml' 
 configfile: 'config.yaml'
+
 ## --------------------------------------------------------------------------------
+# Bring external modules or packages
 import pandas as pd
 
 ## --------------------------------------------------------------------------------
+# Define the number of chromosomes to impute, in this case, 22 autosomes human chromosomes. You can create a list and add sex chromosomes. 
 CHROMS = range(1, 23)
 
+# Read a file specified by the path stored in the configfile under the key 'sampleIds'. The pd.read_table function is used to read the file into a Pandas DataFrame (SAMPLESFILE), and the names parameter is used to specify the column names, with 'sampleId' as the only column in this case.
 SAMPLESFILE=pd.read_table(config['sampleIds'], names=['sampleId'])
 SAMPLES=list(SAMPLESFILE['sampleId'])
 ## --------------------------------------------------------------------------------
-
+# Special rule that defines the final output files or targets of your workflow. It specifies what should be generated when the workflow is executed. 
 rule all:
     input:
         expand("glimpse/stats/allchr.glimpse.summary.tsv", chrom=CHROMS),
@@ -192,7 +197,7 @@ rule annote_vcf_gl:
 
 rule summarize_chrom:
     """
-    Summary statistics (averaged read depth and genotype probability) per chromsome. Output is a tab-delimted file.
+    Summary statistics (averaged read depth and genotype probability) per chromosome. Output is a tab-delimted file.
     """
     input:
         vcf="glimpse/{chrom}.glimpse.vcf.gz",
@@ -206,7 +211,7 @@ rule summarize_chrom:
 
 rule summarize_all:
     """
-    Summary statistics per chromsome are aggregated across the genome (averaged read depth and genotype probability)
+    Summary statistics per chromosome are aggregated across the genome (averaged read depth and genotype probability)
     """
     input:
         expand("glimpse/stats/chr{chrom}.glimpse.summary.tsv", chrom=CHROMS),
