@@ -30,7 +30,9 @@ rule all:
 ```
 
 This is the first rule. Each rule defines how to create output files (the targets) from input files and it consists of one or several commands.
-The rule compute_gl generated genotype likelihoods
+
+The rule compute_gl generated genotype likelihoods (mpileup) and performs variant calling (call). You can read more on samtools and bcftools here [bcftools documentation](https://samtools.github.io/bcftools/bcftools.html). You will find out there what each argument does. 
+
 ```        
 rule compute_gl:
     input:
@@ -55,6 +57,9 @@ rule compute_gl:
         """
 ```
 
+Merge_gl merges all samples into one single file. This is why the expand function is required, as the input will be a list of files. As you may notice, the wildcard '{sample}' won't longer exist and the allow_missing is needed to avoid snakemake complain of missing dependencies. 
+
+```
 rule merge_gl:
     input:
         vcf=expand("tmpDir/{chrom}/{chrom}.{sample}.gl.vcf.gz", sample=SAMPLES, allow_missing=True),
@@ -71,8 +76,10 @@ rule merge_gl:
         bcftools merge -l {output.lst} -m all -Oz > {output.vcf}
         bcftools index -t {output.vcf}
         """
+```
+It performs imputation in chunks for computational reasons which is optional. 
 
-
+```
 rule chunk_glimpse:
     input:
         vcf="tmpDir/{chrom}/{chrom}.gl_merge.vcf.gz",
@@ -91,7 +98,8 @@ rule chunk_glimpse:
         """
         {params.glimpseChunk} --input {input.vcf} --region chr{wildcards.chrom} --window-size {params.glimpseWS} --buffer-size {params.glimpseBS} --output {output} --log {log}
         """
-
+```
+```
 checkpoint get_chunks_chrom:
     input:
         "tmpDir/{chrom}/{chrom}.chunks.txt",
@@ -102,7 +110,9 @@ checkpoint get_chunks_chrom:
         mkdir tmpDir/{wildcards.chrom}/glimpse_chunks
         cat {input} | awk '{{print >"tmpDir/{wildcards.chrom}/glimpse_chunks/"$2"_"$1".chunk"}}'
         """
+```
 
+```
 rule impute_chunk_glimpse:
     input:
         vcf="tmpDir/{chrom}/{chrom}.gl_merge.vcf.gz",
@@ -127,7 +137,9 @@ rule impute_chunk_glimpse:
         {params.glimpsePhase} --thread {threads} --input {input.vcf} --reference {input.vcf_ref} --map {input.genmap} --input-region $(cat {input.chunk} | cut -f3) --output-region $(cat {input.chunk} | cut -f4) --output {output.vcf} --log {log} --seed $RANDOM
         bcftools index -t {output.vcf}
         """    
+```
 
+```
 def aggregate_chunks(wildcards):
     checkpoint_output = checkpoints.get_chunks_chrom.get(**wildcards).output[0]
 
@@ -139,7 +151,9 @@ def aggregate_chunks(wildcards):
     )
     return files
 
+```
 
+```
 rule ligate_chunks_glimpse:
     input:
         aggregate_chunks,
@@ -157,7 +171,11 @@ rule ligate_chunks_glimpse:
         {params.glimpseLigate} --input {output.lst} --output {output.vcf} --log {log}
         bcftools index -t {output.vcf}
         """
+```
 
+Phasing of genotypes
+
+```
 rule phase_glimpse:
     input:
         vcf="tmpDir/{chrom}/{chrom}.ligate.vcf.gz",
@@ -174,7 +192,11 @@ rule phase_glimpse:
         {params.glimpsePhase} --input {input.vcf} --solve --output {output.vcf} --log {log}
         bcftools index -t {output.vcf}
         """
+```
 
+This generated the final vcf file, which is both imputed and phased.
+
+```
 rule annote_vcf_phase:
     input:
         vcf_ligate="tmpDir/{chrom}/{chrom}.ligate.vcf.gz",
@@ -189,8 +211,11 @@ rule annote_vcf_phase:
         bcftools annotate -a {input.vcf_phase} -c FMT/GT {input.vcf_ligate} -Oz > {output.vcf_ant}
         bcftools index -t {output.vcf_ant}
         """
+```
 
+Annotation of INFO file. This can be adapted to the information you need. Read more on 'bcftools' about the possibilities. 
 
+```
 rule annote_vcf_gl:
     """ 
     Annotation of INFO field
@@ -208,11 +233,11 @@ rule annote_vcf_gl:
         bcftools annotate -a {input.vcf_gl} -c FMT/DP,FMT/PL -Oz {input.vcf_ant} > {output.vcf}
         bcftools index -t {output.vcf}
         """
+```
+Summary statistics (averaged read depth and genotype probability) per chromosome. Output is a tab-delimited file.
 
+```
 rule summarize_chrom:
-    """
-    Summary statistics (averaged read depth and genotype probability) per chromosome. Output is a tab-delimted file.
-    """
     input:
         vcf="glimpse/{chrom}.glimpse.vcf.gz",
         # targetsP=config['targets']
@@ -222,11 +247,12 @@ rule summarize_chrom:
         """
         Rscript scripts/summary.R {input.vcf} {output}
         """
+```
 
+Summary statistics per chromosome are aggregated across the genome (averaged read depth and genotype probability)
+
+```
 rule summarize_all:
-    """
-    Summary statistics per chromosome are aggregated across the genome (averaged read depth and genotype probability)
-    """
     input:
         expand("glimpse/stats/chr{chrom}.glimpse.summary.tsv", chrom=CHROMS),
     output:
@@ -235,3 +261,4 @@ rule summarize_all:
         """
         Rscript scripts/summaryAll.R {input} {output}
         """
+```
