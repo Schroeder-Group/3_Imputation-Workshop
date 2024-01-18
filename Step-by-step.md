@@ -21,7 +21,7 @@ SAMPLESFILE=pd.read_table(config['sampleIds'], names=['sampleId'])
 SAMPLES=list(SAMPLESFILE['sampleId'])
 ```
 
-Special rule that defines the final output files or targets of your workflow. It specifies what should be generated when the workflow is executed. Usually, you would specify the final output of the pipeline, but there might be several targets. If the targets are up-to-date (i.e., already exist and their dependencies (input files) haven't changed), Snakemake won't execute the rules. If the targets are missing or outdated (for example, when the code is modified/updated), Snakemake will run the *necessary* rules to generate them. Several targets are separated by commas.
+Rule all is a special rule that defines the final output files or targets of your workflow. It specifies what should be generated when the workflow is executed. Usually, you would specify the final output of the pipeline, but there might be several targets. If the targets are up-to-date (i.e., already exist and their dependencies (input files) haven't changed), Snakemake won't execute the rules. If the targets are missing or outdated (for example, when the code is modified/updated), Snakemake will run the *necessary* rules to generate them. Several targets are separated by commas.
 
 ```
 rule all:
@@ -31,7 +31,7 @@ rule all:
 
 This is the first rule. Each rule defines how to create output files (the targets) from input files and it consists of one or several commands.
 
-The rule compute_gl generated genotype likelihoods (mpileup) and performs variant calling (call). You can read more on samtools and bcftools here [bcftools documentation](https://samtools.github.io/bcftools/bcftools.html). You will find out there what each argument does. 
+The rule compute_gl generated genotype likelihoods ('bcftools mpileup') and performs variant calling ('bcftools call'). The workflow supports multiple BAM files per sample; multiple BAM entries with the same sample ID will be automatically merged before GL calculation ('samtools merge'). You can read more on samtools and bcftools here [bcftools documentation](https://samtools.github.io/bcftools/bcftools.html). You will find out there what each argument does. 
 
 ```        
 rule compute_gl:
@@ -57,7 +57,7 @@ rule compute_gl:
         """
 ```
 
-Merge_gl merges all samples into one single file. This is why the expand function is required, as the input will be a list of files. As you may notice, the wildcard '{sample}' won't longer exist and the allow_missing is needed to avoid snakemake complain of missing dependencies. 
+Merge_gl merges all samples into one single file, which requires the use of the expand function, to get the input as a list of files. As you may notice, the wildcard '{sample}' won't longer exist and the allow_missing is needed to avoid snakemake complaints of missing dependencies. 
 
 ```
 rule merge_gl:
