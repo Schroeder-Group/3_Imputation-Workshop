@@ -2,6 +2,9 @@
 
 This document provides basic guidelines for performing genotype imputation on ancient DNA datasets using a Snakemake workflow. Imputation refers to the process of predicting unobserved genetic variants in the genome of, in this case, ancient samples based on the known variants in modern (and very large) reference panels. If you are not familiar with Snakemake, there is guidance on how to get started and run the pipelines in this README.
 
+Please read [this guide](step-by-step.md) to read what each step (rule) in the pipeline does (corresponding to the file ```step-by-step.md```). 
+
+
 ## Pre-processing 
 
 Note that this pipeline assumes you already have mapped your data to a reference. Important: use the same version of the reference genome for imputation. 
