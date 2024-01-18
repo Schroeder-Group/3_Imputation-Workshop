@@ -51,7 +51,7 @@ Before running a snakemake pipeline, I would *always* recommend running a dry-ru
 - preview the workflow steps: ensuring the sequence of steps is correct
   
 ```bash
-# dry-run. The -np flags specify that job execution will be simulated (-n) and the individual rule commands printed (-p). This is very useful to 
+# dry-run. The -np flags specify that job execution will be simulated (-n) and the individual rule commands printed (-p)
 snakemake -np 
 ```
 Snakemake is very well-documented. A few useful links:
